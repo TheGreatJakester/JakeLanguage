@@ -3,3 +3,5 @@
 make x = 22 + 44 ;
 make str = "Hi there !!!" ;
 print("Hi")
+x = x - 1;
+x += 1;
