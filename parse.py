@@ -23,8 +23,8 @@ def parseOperators(word):
 def parseIdentifiers(word):
     return doesWordMeetPatter(word,r'^([A-Za-z][A-Za-z0-9_]*)$') and not parseKeywords(word)
 
-def parseDigits(words):
-    return True
+def parseDigits(word):
+    return doesWordMeetPatter(word,r'^((-?)\d*(\.\d*)?)$')
 
 def parseStrings(word):
     return doesWordMeetPatter(word,r'^(\".*\")$')

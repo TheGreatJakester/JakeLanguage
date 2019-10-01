@@ -54,7 +54,8 @@ class Test_TestParsing(unittest.TestCase):
     def test_Digits(self):
         wrong = ["these","are","not","digits","0.0.0"]
         digits = ["0","-1","3","9.0",".9","100000000"]
-        input = random.shuffle(wrong + digits)
+        input = wrong + digits
+        random.shuffle(input)
         output = [ word for word in input if parse.parseDigits(word) ]
         self.assertItemsEqual(output,digits,"find digits")
 
