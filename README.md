@@ -6,6 +6,6 @@ It was originaly writen against Python 2.7.15rcl
 
 This was never meant to be run anywhere else other than my personal laptop. However, the environment isn't too complicated.
 
-Make a virtual python environment and install the pip packages listed in the requirments.txt
+**Make a virtual python environment** and install the pip packages listed in the requirments.txt
 
-I'm 99% sure I left the .vscode directory in the repo. It should have some helpfull testing settings.
+I'm ~~99%~~ sure I left the *.vscode* directory in the repo. It should have some helpfull testing settings.
