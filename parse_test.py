@@ -35,7 +35,8 @@ class Test_TestParsing(unittest.TestCase):
     def test_parseOperators(self):
         wrong = ["these","are","not","operators","#","$","_"]
         opperators = ["+","-","*","=","+=","-=",">","<","!=",">=","<="]
-        input = random.shuffle(wrong + opperators)
+        input = wrong + opperators
+        random.shuffle(input)
         output = [word for word in input if parse.parseOperators(word)]
         self.assertItemsEqual(output,opperators,"find the operators")
 
@@ -45,9 +46,10 @@ class Test_TestParsing(unittest.TestCase):
         invalids = ["2er4",",sdf","@sd"]
         identifiers = ["x","y","count","total","r3","R2","totalMoney","i"]
 
-        input = random.shuffle(opperators + keywords + invalids + identifiers)
+        input = opperators + keywords + invalids + identifiers
+        random.shuffle(input)
         output = [ word for word in input if parse.parseIdentifiers(word)]
-        self.assertSequenceEqual(output,identifiers,"find the indentifiers")
+        self.assertItemsEqual(output,identifiers,"find the indentifiers")
 
     def test_Digits(self):
         wrong = ["these","are","not","digits","0.0.0"]
