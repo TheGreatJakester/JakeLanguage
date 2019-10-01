@@ -3,11 +3,12 @@ import parse
 import random
 
 class Test_TestParsing(unittest.TestCase):
-    def parseComments(self):
-        expectedOutput = "TEST"
-        input = "//" + expectedOutput + "\n the rest of the line"
+    def test_parseComments(self):
+        expectedOutput = "//TEST"
+        input = expectedOutput + '\n the rest of the file'
         commentArray = parse.parseComments(input)
-        self.assertEquals(expectedOutput,commentArray[0],"first element was not the comment")
+        output = commentArray[0]
+        self.assertEquals(output,expectedOutput,"first element was not the comment")
     
     def test_parseWords(self):
         testArray = ["these","are","all","words"]

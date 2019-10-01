@@ -1,7 +1,8 @@
 import re
-
 def parseComments(text):
-    return []
+    expression = r"\/\/.*$"
+    found = re.findall(expression,text,re.MULTILINE)
+    return found
 
 def cleanComments(text):
     return ""
