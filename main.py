@@ -11,9 +11,9 @@ keyword_dict = {
 }
 
 def classifyToken(word):
-    print(word)
+    print word + ": ",
     if(parse.parseKeywords(word)):
-        print("is a keyword of type:" + keyword_dict[word])
+        print("is a keyword of type ~:~ " + keyword_dict[word])
     elif(parse.parseStrings(word)):
         print("is a string")
     elif(parse.parseOperators(word)):
