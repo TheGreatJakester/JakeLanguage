@@ -18,6 +18,8 @@ def classifyToken(word):
         return Token.Token(word + ": is a string")
     elif(parse.parseOperators(word)):
         return Token.Token(word + ": is an operator")
+    elif(parse.parseEndOfStatment(word)):
+        return Token.Token("; : is an end of statment")
     elif(parse.parseDigits(word)):
         return Token.Token(word + ": is a number")
     elif(parse.parseIdentifiers(word)):
@@ -37,8 +39,9 @@ comments = parse.parseComments(contents)
 for word in comments:
     print(word)
     print("is a comment and is now removed")
-    print
-    print
+    
+print
+print
 
 contents = parse.cleanComments(contents)
 words = parse.parseOutWords(contents)

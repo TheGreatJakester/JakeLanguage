@@ -29,6 +29,10 @@ def parseDigits(word):
 def parseStrings(word):
     return doesWordMeetPattern(word,r'^(\".*\")$')
 
+def parseEndOfStatment(word):
+    return doesWordMeetPattern(word,r'^[;]$')
+
 def doesWordMeetPattern(word,pattern):
     find = re.search(pattern,word)
     return True if find else False
+
