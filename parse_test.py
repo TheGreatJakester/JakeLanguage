@@ -59,11 +59,12 @@ class Test_TestParsing(unittest.TestCase):
         opperators = ["+","-","*","=","+=","-=",">","<","!=",">=","<="]
         keywords = ["make","if","else","return","class","method"]
         invalids = ["2er4",",sdf","@sd"]
+
         input = random.shuffle(strings + opperators + keywords + invalids)
         input = str.join(input," ")
         output = parse.cleanStrings(input)
-        self.assertTrue(!("\"" in output))
-        
-
-
+        self.assertTrue("\"" not in input)
     
+
+
+        
