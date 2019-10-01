@@ -27,8 +27,9 @@ class Test_TestParsing(unittest.TestCase):
     def test_parseKeyWords(self):
         wrong = ["some","of","these","words","are","not","keywords"]
         keywords = ["make","if","else","return","class","method"]
-        input = random.shuffle(wrong + keywords)
-        output = [ word for word in input if parse.parseKeywords(input)]
+        input = wrong + keywords
+        random.shuffle(input)
+        output = [ word for word in input if parse.parseKeywords(word)]
         self.assertItemsEqual(output,keywords,"find the keywords")
     
     def test_parseOperators(self):

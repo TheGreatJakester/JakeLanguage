@@ -14,8 +14,10 @@ def parseOutWords(text):
     words = re.findall(wordPatter,text,re.MULTILINE)
     return words
 
-def parseKeywords(words):
-    return True
+def parseKeywords(word):
+    keywordsPattern = r'^(make|if|else|return|class|method)$'
+    find = re.search(keywordsPattern,word)
+    return True if find else False
 
 def parseOperators(words):
     return True
