@@ -3,4 +3,4 @@
 make x = 22 + 44 
 make str = "Hi there !!!"
 x = x - 1
-x += 1
+x += -1.87

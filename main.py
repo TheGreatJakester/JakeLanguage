@@ -1,5 +1,6 @@
 import re
 import parse
+import Token
 
 keyword_dict = {
     "make": "declares a variable",
@@ -11,19 +12,18 @@ keyword_dict = {
 }
 
 def classifyToken(word):
-    print word + ": ",
     if(parse.parseKeywords(word)):
-        print("is a keyword of type ~:~ " + keyword_dict[word])
+        return Token.Token(word + ": is a keyword of type ~:~ " + keyword_dict[word])
     elif(parse.parseStrings(word)):
-        print("is a string")
+        return Token.Token(word + ": is a string")
     elif(parse.parseOperators(word)):
-        print("is an operator")
+        return Token.Token(word + ": is an operator")
     elif(parse.parseDigits(word)):
-        print("is a number")
+        return Token.Token(word + ": is a number")
     elif(parse.parseIdentifiers(word)):
-        print("is an identefier")
+        return Token.Token(word + ": is an identefier")
     else:
-        print("unknown")
+        return Token.Token(word)
 
 contents = ""
 try:
@@ -37,8 +37,11 @@ comments = parse.parseComments(contents)
 for word in comments:
     print(word)
     print("is a comment and is now removed")
+    print
+    print
 
 contents = parse.cleanComments(contents)
 words = parse.parseOutWords(contents)
-for word in words:
-    classifyToken(word)
+tokens = [classifyToken(word) for word in words]
+for token in tokens:
+    print(token.description)
