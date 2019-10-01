@@ -7,20 +7,23 @@ def cleanComments(text):
     return ""
 
 def parseOutWords(text):
-    return []
+    return True
 
 def parseKeywords(words):
-    return []
+    return True
 
 def parseOperators(words):
-    return []
+    return True
 
 def parseIdentifiers(words):
-    return []
+    return True
 
 def parseDigits(words):
+    return True
+
+def parseStrings(text):
     return []
 
-def parseStrings(words):
-    return []
+def cleanStrings(text):
+    return ""
 
