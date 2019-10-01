@@ -17,11 +17,12 @@ class Test_TestParsing(unittest.TestCase):
         self.assertTrue("//" not in output)
         self.assertEqual(output,notAComment)
         
-
     
     def test_parseWords(self):
-        testArray = ["these","are","all","words"]
-        self.assertItemsEqual(parse.parseOutWords(str.join(testArray," ")),testArray)
+        testArray = ["these","are","all","words",'"or a string"']
+        text = " ".join(testArray)
+        output = parse.parseOutWords(text)
+        self.assertItemsEqual(output,testArray)
 
     def test_parseKeyWords(self):
         wrong = ["some","of","these","words","are","not","keywords"]

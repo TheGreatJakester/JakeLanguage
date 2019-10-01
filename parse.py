@@ -10,7 +10,9 @@ def cleanComments(text):
     return noComment
 
 def parseOutWords(text):
-    return True
+    wordPatter = r'\w+|".*"'
+    words = re.findall(wordPatter,text,re.MULTILINE)
+    return words
 
 def parseKeywords(words):
     return True
