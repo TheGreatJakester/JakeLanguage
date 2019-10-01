@@ -15,20 +15,20 @@ def parseOutWords(text):
     return words
 
 def parseKeywords(word):
-    return doesWordMeetPatter(word,r'^(make|if|else|return|class|method)$')
+    return doesWordMeetPattern(word,r'^(make|if|else|return|class|method)$')
 
 def parseOperators(word):
-    return doesWordMeetPatter(word,r'^(\+|-|\*|=|\+=|-=|>|<|!=|>=|<=)$')
+    return doesWordMeetPattern(word,r'^(\+|-|\*|=|\+=|-=|>|<|!=|>=|<=)$')
 
 def parseIdentifiers(word):
-    return doesWordMeetPatter(word,r'^([A-Za-z][A-Za-z0-9_]*)$') and not parseKeywords(word)
+    return doesWordMeetPattern(word,r'^([A-Za-z][A-Za-z0-9_]*)$') and not parseKeywords(word)
 
 def parseDigits(word):
-    return doesWordMeetPatter(word,r'^((-?)\d*(\.\d*)?)$')
+    return doesWordMeetPattern(word,r'^((-?)\d*(\.\d*)?)$')
 
 def parseStrings(word):
-    return doesWordMeetPatter(word,r'^(\".*\")$')
+    return doesWordMeetPattern(word,r'^(\".*\")$')
 
-def doesWordMeetPatter(word,pattern):
+def doesWordMeetPattern(word,pattern):
     find = re.search(pattern,word)
     return True if find else False
