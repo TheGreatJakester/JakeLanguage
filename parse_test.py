@@ -9,6 +9,15 @@ class Test_TestParsing(unittest.TestCase):
         commentArray = parse.parseComments(input)
         output = commentArray[0]
         self.assertEquals(output,expectedOutput,"first element was not the comment")
+
+    def test_cleanCommentsOut(self):
+        notAComment = '\nNot a comment'
+        input = "//here is a comment"+notAComment+"//asdfasdf"
+        output = parse.cleanComments(input)
+        self.assertTrue("//" not in output)
+        self.assertEqual(output,notAComment)
+        
+
     
     def test_parseWords(self):
         testArray = ["these","are","all","words"]

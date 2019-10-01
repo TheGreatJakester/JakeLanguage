@@ -5,7 +5,9 @@ def parseComments(text):
     return found
 
 def cleanComments(text):
-    return ""
+    expression = r"\/\/.*$"
+    noComment = re.sub(expression,"",text,0,re.MULTILINE)
+    return noComment
 
 def parseOutWords(text):
     return True
