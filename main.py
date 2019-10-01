@@ -1,10 +1,19 @@
 import re
 import parse
 
+keyword_dict = {
+    "make": "declares a variable",
+    "if": "if control flow",
+    "else": "else control flow",
+    "return": "returns out of a method",
+    "class": "declares a class",
+    "method": "declares a method",
+}
+
 def classifyToken(word):
     print(word)
     if(parse.parseKeywords(word)):
-        print("is a keyword")
+        print("is a keyword of type:" + keyword_dict[word])
     elif(parse.parseStrings(word)):
         print("is a string")
     elif(parse.parseOperators(word)):
