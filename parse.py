@@ -26,11 +26,8 @@ def parseIdentifiers(word):
 def parseDigits(words):
     return True
 
-def parseStrings(text):
-    return []
-
-def cleanStrings(text):
-    return ""
+def parseStrings(word):
+    return doesWordMeetPatter(word,r'^(\".*\")$')
 
 def doesWordMeetPatter(word,pattern):
     find = re.search(pattern,word)

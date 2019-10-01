@@ -63,21 +63,10 @@ class Test_TestParsing(unittest.TestCase):
         opperators = ["+","-","*","=","+=","-=",">","<","!=",">=","<="]
         keywords = ["make","if","else","return","class","method"]
         invalids = ["2er4",",sdf","@sd"]
-        input = random.shuffle(strings + opperators + keywords + invalids)
-        input = str.join(input," ")
-        output = parse.parseStrings(input)
+        input = strings + opperators + keywords + invalids
+        random.shuffle(input)
+        output = [word for word in input if parse.parseStrings(word)]
         self.assertItemsEqual(output,strings,"find strings")
-
-    def test_cleanStrings(self):
-        strings = ["\"string with spaces\"","\"stringWithNoSpaces\""]
-        opperators = ["+","-","*","=","+=","-=",">","<","!=",">=","<="]
-        keywords = ["make","if","else","return","class","method"]
-        invalids = ["2er4",",sdf","@sd"]
-
-        input = random.shuffle(strings + opperators + keywords + invalids)
-        input = str.join(input," ")
-        output = parse.cleanStrings(input)
-        self.assertTrue("\"" not in input)
     
 
 
