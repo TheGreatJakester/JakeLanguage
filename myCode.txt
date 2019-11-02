@@ -1,6 +1,8 @@
 // this is a comment and it is going to be ignored
 
+// this is a new comment
 make x = 22 + 44 ;
-make str = "Hi there !!!" ;
+// make str = "Hi there !!!" ;
 x = x - 1 ;
 x += -1.87 ;
+return x ;
