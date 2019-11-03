@@ -1,11 +1,6 @@
+import Operand
 
-STRING = 0
-NUMBER = 1
-BOOLEAN = 2
-
-
-class Variable:
+class Variable(Operand):
     def __init__(self,name,value,var_type):
+        super(self,value,var_type)
         self.name = name
-        self.value = value
-        self.var_type = var_type
