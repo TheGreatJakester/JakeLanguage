@@ -52,8 +52,14 @@ def classifyToken(word):
         return Token.Token(Operand.Operand(word,Operand.STRING))
 
     elif(tokenizeOperators(word)):
-        if word = "+"
-        return Token.Token(Operator.Operator())
+        if word = "+":
+            return Token.Token(Operator.PlusOperator())
+        if word = "-":
+            return Token.Token(Operator.MinusOperator())
+        if word = "*":
+            return Token.Token(Operator.TimesOperator())
+        if word = "/":
+            return Token.Token(Operator.DividesOperator())
 
     elif(tokenizeEndOfStatment(word)):
         
