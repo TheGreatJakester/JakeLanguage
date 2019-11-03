@@ -1,5 +1,5 @@
 import re
-import parse
+import Tokenize
 import Token
 
 keyword_dict = {
@@ -12,17 +12,17 @@ keyword_dict = {
 }
 
 def classifyToken(word):
-    if(parse.parseKeywords(word)):
+    if(Tokenize.TokenizeKeywords(word)):
         return Token.Token(word + ": is a keyword of type ~:~ " + keyword_dict[word])
-    elif(parse.parseStrings(word)):
+    elif(Tokenize.TokenizeStrings(word)):
         return Token.Token(word + ": is a string")
-    elif(parse.parseOperators(word)):
+    elif(Tokenize.TokenizeOperators(word)):
         return Token.Token(word + ": is an operator")
-    elif(parse.parseEndOfStatment(word)):
+    elif(Tokenize.TokenizeEndOfStatment(word)):
         return Token.Token("; : is an end of statment")
-    elif(parse.parseDigits(word)):
+    elif(Tokenize.TokenizeDigits(word)):
         return Token.Token(word + ": is a number")
-    elif(parse.parseIdentifiers(word)):
+    elif(Tokenize.TokenizeIdentifiers(word)):
         return Token.Token(word + ": is an identefier")
     else:
         return Token.Token(word)
@@ -35,7 +35,7 @@ try:
 except:
     print("there was an issue reading the file")
 
-comments = parse.parseComments(contents)
+comments = Tokenize.TokenizeComments(contents)
 for word in comments:
     print(word)
     print("is a comment and is now removed")
@@ -43,8 +43,8 @@ for word in comments:
 print
 print
 
-contents = parse.cleanComments(contents)
-words = parse.parseOutWords(contents)
+contents = Tokenize.cleanComments(contents)
+words = Tokenize.TokenizeOutWords(contents)
 tokens = [classifyToken(word) for word in words]
 for token in tokens:
     print(token.description)
