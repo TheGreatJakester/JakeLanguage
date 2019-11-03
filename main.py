@@ -11,21 +11,6 @@ keyword_dict = {
     "method": "declares a method",
 }
 
-def classifyToken(word):
-    if(Tokenize.TokenizeKeywords(word)):
-        return Token.Token(word + ": is a keyword of type ~:~ " + keyword_dict[word])
-    elif(Tokenize.TokenizeStrings(word)):
-        return Token.Token(word + ": is a string")
-    elif(Tokenize.TokenizeOperators(word)):
-        return Token.Token(word + ": is an operator")
-    elif(Tokenize.TokenizeEndOfStatment(word)):
-        return Token.Token("; : is an end of statment")
-    elif(Tokenize.TokenizeDigits(word)):
-        return Token.Token(word + ": is a number")
-    elif(Tokenize.TokenizeIdentifiers(word)):
-        return Token.Token(word + ": is an identefier")
-    else:
-        return Token.Token(word)
 
 contents = ""
 try:
