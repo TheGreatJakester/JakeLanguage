@@ -2,6 +2,9 @@ import re
 import Keyword
 import Operand
 import Operator
+import endOfStatment
+import variable
+import Identifier
 
 def tokenizeComments(text):
     expression = r"\/\/.*$"
@@ -44,7 +47,7 @@ def doesWordMeetPattern(word,pattern):
 def classifyToken(word):
     if(tokenizeKeywords(word)):
         if(word == "make"):
-            return Token.Token(Keyword())
+            return Token.Token(Keyword.Keyword())
         else:
             raise "error: no support for that keyword"
 
@@ -63,12 +66,12 @@ def classifyToken(word):
 
     elif(tokenizeEndOfStatment(word)):
         
-        return Token.Token("; : is an end of statment")
+        return Token.Token(endOfStatment.EndOfStatment)
 
     elif(tokenizeDigits(word)):
         return Token.Token(Operand.Operand(word,Operand.NUMBER))
 
     elif(tokenizeIdentifiers(word)):
-        return Token.Token()
+        return Token.Token(Identifier.Identifier(word))
     else:
-        return Token.Token(word)
+        raise "didn't find that word"
