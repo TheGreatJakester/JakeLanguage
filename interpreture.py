@@ -117,16 +117,13 @@ class Interpreture:
 
         elif(tokenizeDigits(word)):
             if self.expectingOperand:
-                op = Operand.Operand(word,Operand.STRING)
+                op = Operand.Operand(word,Operand.NUMBER)
                 self.handleOperand(op)
                 
             else:
                 print "not expecint operand {}".format(word)
                 raise SyntaxError
 
-            else:
-                print "not expecing operand {}".format(word)
-                raise SyntaxError
 
         elif(tokenizeIdentifiers(word)):
             cur_variable = self.table.findVariableByName(word)
