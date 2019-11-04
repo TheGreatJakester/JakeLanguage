@@ -51,7 +51,7 @@ class Interpreture:
                     self.expectingOperator = True
 
             else:
-                print "not expecint operand {word}"
+                print "not expecint operand {}".format(word)
                 raise SyntaxError
 
 
@@ -66,7 +66,7 @@ class Interpreture:
                     raise SyntaxError
 
             if not self.expectingOperator:
-                print "Not expecting operator {word}"
+                print "Not expecting operator {}".format(word)
                 raise SyntaxError
 
             operator = None
@@ -148,7 +148,7 @@ class Interpreture:
                     if not self.assignVar.var_type:
                         self.assignVar.var_type = variable.var_type
                     if not variable.var_type == self.assignVar.var_type:
-                        print "type of {variable.name} doesn't match {self.assignVar.name}"
+                        print "type of {} doesn't match {}".format(variable.name, self.assignVar.name)
                         raise SyntaxError
                 elif not self.assignVar:
                     #we must be statless and able to start assigning this variable
