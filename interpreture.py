@@ -36,7 +36,15 @@ class Interpreture:
                 raise "error: no support for that keyword"
 
         elif(tokenizeStrings(word)):
-            return Token.Token(Operand.Operand(word,Operand.STRING))
+            if self.expectingOperand:
+                self.lastOperand = Operand.Operand(word,Operand.STRING))
+                self.expectingOperand = False
+                self.expectingOperator = True
+                self.expectEndState = True
+
+            else:
+                raise "not expecint operand {word}"
+
 
         elif(tokenizeOperators(word)):
             if word == "=":
@@ -90,7 +98,12 @@ class Interpreture:
                 raise "not expecting end of statment"
 
         elif(tokenizeDigits(word)):
-            return Token.Token(Operand.Operand(word,Operand.NUMBER))
+            if not self.expectingOperand:
+                raise "not expecting operand {word}"
+            self.lastOperand = Operand.Operand(word,Operand.NUMBER)
+            self.expectingOperand = False
+            self.expectingOperator = True
+            self.expectEndState = True
 
         elif(tokenizeIdentifiers(word)):
             variable = self.table.findVariableByName(word)
