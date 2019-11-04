@@ -33,6 +33,7 @@ class Interpreture:
                 self.expectingIdentifier = True
             elif(word == "print"):
                 self.printState = True
+                self.expectingOperand = True
             else:
                 print "error: no support for that keyword"
                 raise SyntaxError
@@ -111,13 +112,12 @@ class Interpreture:
 
         elif(tokenizeDigits(word)):
             if self.expectingOperand:
-                self.lastOperand = Operand.Operand(word,Operand.NUMBER)
-                if not self.assignVar.var_type:
-                    self.assignVar.var_type = Operand.NUMBER
-
                 if self.printState:
                     print(word)
-                else:
+                elif self.assignState:
+                    self.lastOperand = Operand.Operand(word,Operand.NUMBER)
+                    if not self.assignVar.var_type:
+                        self.assignVar.var_type = Operand.NUMBER
                     self.expectingOperand = False
                     self.expectingOperator = True
 
@@ -143,6 +143,7 @@ class Interpreture:
                     raise SyntaxError
                 elif self.printState:
                     print(variable.value)
+                    self.expectingOperand = True
                 elif self.assignState:
                     if not self.assignVar.var_type:
                         self.assignVar.var_type = variable.var_type
@@ -156,5 +157,5 @@ class Interpreture:
             
 
         else:
-            print "didn't find that word {word}"
+            print "didn't find that word {}".format(word)
             raise SyntaxError
