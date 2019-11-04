@@ -21,6 +21,18 @@ class Interpreture:
         self.expectingOperator = False
         self.expectingAssignmentOperator = False
 
+    def handleOperand(self,op):
+        if self.printState:
+            print(word)
+        elif self.assignState:
+            self.lastOperand = op
+            if not self.assignVar.var_type:
+                self.assignVar.var_type = op.var_type
+            if not self.assignVar.var_type == op.var_type:
+                print "expected type of {} to be {}".format(op.value,self.assignVar.var_type)
+            self.expectingOperand = False
+            self.expectingOperator = True
+
 
     def classifyToken(self,word):
         if(tokenizeKeywords(word)):
@@ -40,16 +52,9 @@ class Interpreture:
 
         elif(tokenizeStrings(word)):
             if self.expectingOperand:
-                self.lastOperand = Operand.Operand(word,Operand.STRING)
-                if not self.assignVar.var_type:
-                    self.assignVar.var_type = Operand.STRING
-
-                if self.printState:
-                    print(word)
-                else:
-                    self.expectingOperand = False
-                    self.expectingOperator = True
-
+                op = Operand.Operand(word,Operand.STRING)
+                self.handleOperand(op)
+                
             else:
                 print "not expecint operand {}".format(word)
                 raise SyntaxError
@@ -112,14 +117,12 @@ class Interpreture:
 
         elif(tokenizeDigits(word)):
             if self.expectingOperand:
-                if self.printState:
-                    print(word)
-                elif self.assignState:
-                    self.lastOperand = Operand.Operand(word,Operand.NUMBER)
-                    if not self.assignVar.var_type:
-                        self.assignVar.var_type = Operand.NUMBER
-                    self.expectingOperand = False
-                    self.expectingOperator = True
+                op = Operand.Operand(word,Operand.STRING)
+                self.handleOperand(op)
+                
+            else:
+                print "not expecint operand {}".format(word)
+                raise SyntaxError
 
             else:
                 print "not expecing operand {}".format(word)
@@ -147,14 +150,7 @@ class Interpreture:
                     self.expectingOperand = True
                 elif self.assignState:
                     if self.expectingOperand:
-                        if not self.assignVar.var_type:
-                            self.assignVar.var_type = cur_variable.var_type
-                        if not cur_variable.var_type == self.assignVar.var_type:
-                            print "type of {} doesn't match {}".format(cur_variable.name, self.assignVar.name)
-                            raise SyntaxError
-                        self.expectingOperand = False
-                        self.expectingOperator = True
-                        self.lastOperand = cur_variable
+                        self.handleOperand(cur_variable)
                     else:
                         print "Not expecting identifier {}".format(word)
 

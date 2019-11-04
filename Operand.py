@@ -1,6 +1,6 @@
-STRING = 0
-NUMBER = 1
-BOOLEAN = 2
+STRING = 111
+NUMBER = 222
+BOOLEAN = 333
 
 
 class Operand:
