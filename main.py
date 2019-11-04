@@ -30,6 +30,6 @@ print
 
 contents = Tokenize.cleanComments(contents)
 words = Tokenize.tokenizeOutWords(contents)
-tokens = [classifyToken(word) for word in words]
+tokens = [Tokenize.classifyToken(word) for word in words]
 for token in tokens:
     print(token)

@@ -1,2 +1,3 @@
 class Keyword:
-    name = "make"
+    def __init__(self):
+        self.name = "make"

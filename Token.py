@@ -1,3 +1,3 @@
 class Token:
-    def __init__(self,line,col,value):
+    def __init__(self,value):
         self.value = value

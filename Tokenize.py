@@ -5,6 +5,7 @@ import Operator
 import endOfStatment
 import variable
 import Identifier
+import Token
 
 def tokenizeComments(text):
     expression = r"\/\/.*$"
