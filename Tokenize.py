@@ -7,6 +7,7 @@ import variable
 import Identifier
 import Token
 import assignment
+import printOperator
 
 def tokenizeComments(text):
     expression = r"\/\/.*$"
@@ -24,7 +25,7 @@ def tokenizeOutWords(text):
     return words
 
 def tokenizeKeywords(word):
-    return doesWordMeetPattern(word,r'^(make|if|else|return|class|method)$')
+    return doesWordMeetPattern(word,r'^(make|if|else|return|class|method|print)$')
 
 def tokenizeOperators(word):
     return doesWordMeetPattern(word,r'^(\+|-|\*|=|\+=|-=|>|<|!=|>=|<=)$')
@@ -50,6 +51,8 @@ def classifyToken(word):
     if(tokenizeKeywords(word)):
         if(word == "make"):
             return Token.Token(Keyword.Keyword())
+        if(word == "print"):
+            return Token.Token(printOperator.PrintOperator())
         else:
             raise "error: no support for that keyword"
 
