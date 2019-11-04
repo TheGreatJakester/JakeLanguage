@@ -20,7 +20,7 @@ try:
 except:
     print("there was an issue reading the file")
 
-comments = Tokenize.TokenizeComments(contents)
+comments = Tokenize.tokenizeComments(contents)
 for word in comments:
     print(word)
     print("is a comment and is now removed")
@@ -29,7 +29,7 @@ print
 print
 
 contents = Tokenize.cleanComments(contents)
-words = Tokenize.TokenizeOutWords(contents)
+words = Tokenize.tokenizeOutWords(contents)
 tokens = [classifyToken(word) for word in words]
 for token in tokens:
-    print(token.description)
+    print(token)

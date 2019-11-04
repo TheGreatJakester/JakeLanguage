@@ -7,8 +7,9 @@ def doubleCheck(operand1,operand2,data_type):
            
 
 class Operator:
-    self.name = ""
-    self.data_types = []
+    def __init__(self):    
+        self.name = ""
+        self.data_types = []
     def doesCompute(self,op1,op2):
         for dt in self.data_types:
             if not doubleCheck(op1,op2,dt):
@@ -25,26 +26,30 @@ class Operator:
             raise "Operator %s doesn't work on %s and %s" % name, op1.type, op2.type
 
 class PlusOperator(Operator):
-    self.name = "+"
-    self.data_types = [Operand.STRING,Operand.NUMBER]
+    def __init__(self): 
+        self.name = "+"
+        self.data_types = [Operand.STRING,Operand.NUMBER]
     def evaluate(operand1,operand):
         return operand1 + operand2
 
 class MinusOperator(Operator):
-    self.name = "-"
-    self.data_types = [Operand.STRING,Operand.NUMBER]
+    def __init__(self): 
+        self.name = "-"
+        self.data_types = [Operand.STRING,Operand.NUMBER]
     def evaluate(operand1,operand):
         return operand1 * operand2
 
 
 class TimesOperator(Operator):
-    self.name = "*"
-    self.data_types = [Operand.NUMBER]
+    def __init__(self): 
+        self.name = "*"
+        self.data_types = [Operand.NUMBER]
     def evaluate(operand1,operand):
         return operand1 * operand2
     
 class DividesOperator(Operator):
-    self.name = "/"
-    self.data_types = [Operand.NUMBER]
+    def __init__(self): 
+        self.name = "/"
+        self.data_types = [Operand.NUMBER]
     def evaluate(operand1,operand):
         return operand1 / operand2

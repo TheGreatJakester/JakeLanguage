@@ -1,3 +1,4 @@
 
 class EndOfStatment:
-    self.name = "EOS"
+    def __init__():
+        self.name = "EOS"
