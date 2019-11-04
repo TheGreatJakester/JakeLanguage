@@ -6,7 +6,7 @@ class SymbolTable:
 
     def addSymbol(self,variable):
         if not self.hasSymbol(variable):
-            table.append(variable)
+            self.table.append(variable)
         else:
             pass
 
@@ -15,7 +15,7 @@ class SymbolTable:
             if var.name == name:
                 return True
         return False
-        
+
     def findVariableByName(self,name):
         for var in self.table:
             if var.name == name:

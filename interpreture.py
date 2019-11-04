@@ -125,6 +125,7 @@ class Interpreture:
                 if self.makeState:
                     self.assignVar = Variable(word,None,None)
                     self.expectingAssignmentOperator = True
+                    self.table.addSymbol(self.assignVar)
                 else:
                     print "identifier not declared"
                     raise SyntaxError
@@ -134,7 +135,7 @@ class Interpreture:
                     print "identifier allready declared"
                     raise SyntaxError
                 elif self.printState:
-                    print(variable.variable.value)
+                    print(variable.value)
                     self.expectEndState = True
                 elif self.assignState:
                     if not self.assignVar.var_type:
