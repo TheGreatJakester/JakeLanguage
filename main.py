@@ -33,6 +33,5 @@ contents = Tokenize.cleanComments(contents)
 words = Tokenize.tokenizeOutWords(contents)
 runner = interpreture.Interpreture()
 for word in words:
-    print(word)
     runner.classifyToken(word)
     

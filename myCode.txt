@@ -1,2 +1,4 @@
-make x = 22 + 44 ;
-print x x ;
+make x = 1 ;
+make y = x + 1 ;
+make z = x + y + u ;
+print z ;

@@ -8,11 +8,12 @@ class SymbolTable:
         if not self.hasSymbol(variable):
             self.table.append(variable)
         else:
-            pass
+            print "already defined that variable"
+            raise SyntaxError
 
     def hasSymbol(self,variable):
         for var in self.table:
-            if var.name == name:
+            if var.name == variable.name:
                 return True
         return False
 
@@ -20,3 +21,4 @@ class SymbolTable:
         for var in self.table:
             if var.name == name:
                 return var
+        return None

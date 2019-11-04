@@ -126,15 +126,16 @@ class Interpreture:
                 raise SyntaxError
 
         elif(tokenizeIdentifiers(word)):
-            variable = self.table.findVariableByName(word)
-            if not variable:
+            cur_variable = self.table.findVariableByName(word)
+            if not cur_variable:
                 # no variable found; make sure we are in a make state
                 if self.makeState:
                     self.assignVar = Variable(word,None,None)
                     self.expectingAssignmentOperator = True
+                    self.makeState = False
                     self.table.addSymbol(self.assignVar)
                 else:
-                    print "identifier not declared"
+                    print "identifier {} not declared".format(word)
                     raise SyntaxError
             else:
                 #we found a declared variable... check states
@@ -142,17 +143,24 @@ class Interpreture:
                     print "identifier allready declared"
                     raise SyntaxError
                 elif self.printState:
-                    print(variable.value)
+                    print(cur_variable.value)
                     self.expectingOperand = True
                 elif self.assignState:
-                    if not self.assignVar.var_type:
-                        self.assignVar.var_type = variable.var_type
-                    if not variable.var_type == self.assignVar.var_type:
-                        print "type of {} doesn't match {}".format(variable.name, self.assignVar.name)
-                        raise SyntaxError
+                    if self.expectingOperand:
+                        if not self.assignVar.var_type:
+                            self.assignVar.var_type = cur_variable.var_type
+                        if not cur_variable.var_type == self.assignVar.var_type:
+                            print "type of {} doesn't match {}".format(cur_variable.name, self.assignVar.name)
+                            raise SyntaxError
+                        self.expectingOperand = False
+                        self.expectingOperator = True
+                        self.lastOperand = cur_variable
+                    else:
+                        print "Not expecting identifier {}".format(word)
+
                 elif not self.assignVar:
                     #we must be statless and able to start assigning this variable
-                    self.assignVar = variable
+                    self.assignVar = cur_variable
                     self.expectingAssignmentOperator = True
             
 
