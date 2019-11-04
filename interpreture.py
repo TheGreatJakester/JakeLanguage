@@ -34,7 +34,7 @@ class Interpreture:
                 self.expectingIdentifier = True
             else:
                 print "error: no support for that keyword"
-                raise
+                raise SyntaxError
 
         elif(tokenizeStrings(word)):
             if self.expectingOperand:
@@ -45,7 +45,7 @@ class Interpreture:
 
             else:
                 print "not expecint operand {word}"
-                raise
+                raise SyntaxError
 
 
         elif(tokenizeOperators(word)):
@@ -55,11 +55,11 @@ class Interpreture:
                     return
                 else:
                     print "Not expeccting assignment operator"
-                    raise
+                    raise SyntaxError
 
             if not self.expectingOperator:
                 print "Not expecting operator {word}"
-                raise
+                raise SyntaxError
 
             operator = None
             if word == "+":
@@ -74,10 +74,10 @@ class Interpreture:
             if operator:
                 if not operator.doesCompute(self.lastOperand, self.assignVar):
                     print "{operator.name} doesn't work on {self.lastOperand.var_type} and {self.assignVar.var_type}"
-                    raise
+                    raise SyntaxError
             else:
                 print "no support for that operator"
-                raise
+                raise SyntaxError
 
             self.expectEndState = False
             self.expectingOperand = True
@@ -102,12 +102,12 @@ class Interpreture:
                 self.expectEndState = False
             else: 
                 print "not expecting end of statment"
-                raise
+                raise SyntaxError
 
         elif(tokenizeDigits(word)):
             if not self.expectingOperand:
                 print "not expecting operand {word}"
-                raise
+                raise SyntaxError
             self.lastOperand = Operand.Operand(word,Operand.NUMBER)
             self.expectingOperand = False
             self.expectingOperator = True
@@ -122,12 +122,12 @@ class Interpreture:
                     self.expectingAssignmentOperator = True
                 else:
                     print "identifier not declared"
-                    raise
+                    raise SyntaxError
             else:
                 #we found a declared variable... check states
                 if self.makeState:
                     print "identifier allready declared"
-                    raise
+                    raise SyntaxError
                 elif self.printState:
                     print(variable.variable.value)
                     self.expectEndState = True
@@ -136,7 +136,7 @@ class Interpreture:
                         self.assignVar.var_type = variable.var_type
                     if not variable.var_type == self.assignVar.var_type:
                         print "type of {variable.name} doesn't match {self.assignVar.name}"
-                        raise
+                        raise SyntaxError
                 elif not self.assignVar:
                     #we must be statless and able to start assigning this variable
                     self.assignVar = variable
@@ -145,4 +145,4 @@ class Interpreture:
 
         else:
             print "didn't find that word {word}"
-            raise
+            raise SyntaxError
