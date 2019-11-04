@@ -3,7 +3,7 @@ import Token
 
 
 class Interpreture:
-    def classifyToken(word):
+    def classifyToken(self,word):
         if(tokenizeKeywords(word)):
             if(word == "make"):
                 return Token.Token(Keyword.Keyword())
