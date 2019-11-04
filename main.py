@@ -1,6 +1,7 @@
 import re
 import Tokenize
 import Token
+import interpreture
 
 keyword_dict = {
     "make": "declares a variable",
@@ -30,8 +31,7 @@ print
 
 contents = Tokenize.cleanComments(contents)
 words = Tokenize.tokenizeOutWords(contents)
-tokens = [Tokenize.classifyToken(word) for word in words]
-for token in tokens:
-    mes = token.value.name
+runner = interpreture.Interpreture()
+for word in words:
+    runner.classifyToken(word)
     
-    print(mes)
