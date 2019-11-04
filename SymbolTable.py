@@ -1,18 +1,22 @@
 
 
 class SymbolTable:
-    table = []
+    def __init__(self):
+        self.table = []
 
-    def addSymbol(variable):
-        if not this.hasSymbol(variable):
+    def addSymbol(self,variable):
+        if not self.hasSymbol(variable):
             table.append(variable)
         else:
             pass
 
-    def hasSymbol(variable):
+    def hasSymbol(self,variable):
+        for var in self.table:
+            if var.name == name:
+                return True
         return False
-
-    def findVariableByName(name):
-        for var in table:
+        
+    def findVariableByName(self,name):
+        for var in self.table:
             if var.name == name:
                 return var
