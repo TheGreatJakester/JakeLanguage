@@ -16,7 +16,9 @@ class Interpreture:
 
         self.expectingIdentifier = False
         self.expectingOperand = False
+
         self.lastOperand = None
+        self.lastOperator = None
 
         self.expectingOperator = False
         self.expectingAssignmentOperator = False
@@ -25,11 +27,15 @@ class Interpreture:
         if self.printState:
             print(word)
         elif self.assignState:
+            if self.lastOperator and self.lastOperand and not self.lastOperator.doesCompute(self.lastOperand, op):
+                print "{} doesn't work on {} and {}".format(self.lastOperator.name,self.lastOperand.var_type,op.var_type)
+                raise SyntaxError
             self.lastOperand = op
             if not self.assignVar.var_type:
                 self.assignVar.var_type = op.var_type
             if not self.assignVar.var_type == op.var_type:
                 print "expected type of {} to be {}".format(op.value,self.assignVar.var_type)
+            
             self.expectingOperand = False
             self.expectingOperator = True
 
@@ -85,9 +91,7 @@ class Interpreture:
                 operator = Operator.DividesOperator()
 
             if operator:
-                if not operator.doesCompute(self.lastOperand, self.assignVar):
-                    print "{} doesn't work on {} and {}".format(operator.name,self.lastOperand.var_type,self.assignVar.var_type)
-                    raise SyntaxError
+                self.lastOperator = operator
             else:
                 print "no support for that operator"
                 raise SyntaxError

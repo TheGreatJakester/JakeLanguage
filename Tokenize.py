@@ -20,7 +20,7 @@ def cleanComments(text):
     return noComment
 
 def tokenizeOutWords(text):
-    wordPatter = r'".*"|[^\s]+'
+    wordPatter = r'".*?"|[^\s]+'
     words = re.findall(wordPatter,text,re.MULTILINE)
     return words
 
@@ -37,7 +37,7 @@ def tokenizeDigits(word):
     return doesWordMeetPattern(word,r'^((-?)\d*(\.\d*)?)$')
 
 def tokenizeStrings(word):
-    return doesWordMeetPattern(word,r'^(\".*\")$')
+    return doesWordMeetPattern(word,r'^(\".*?\")$')
 
 def tokenizeEndOfStatment(word):
     return doesWordMeetPattern(word,r'^[;]$')
