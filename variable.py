@@ -1,6 +1,5 @@
-from Operand import Operand
-
-class Variable(Operand):
+class Variable:
     def __init__(self,name,value,var_type):
-        super(value,var_type)
+        self.value = value
+        self.var_type = var_type
         self.name = name

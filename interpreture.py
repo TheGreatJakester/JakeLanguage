@@ -1,7 +1,7 @@
 from Tokenize import *
 import Token
 import SymbolTable
-import variable
+from variable import *
 
 
 class Interpreture:
@@ -118,7 +118,7 @@ class Interpreture:
             if not variable:
                 # no variable found; make sure we are in a make state
                 if self.makeState:
-                    self.assignVar = variable.Variable(word,None,None)
+                    self.assignVar = Variable(word,None,None)
                     self.expectingAssignmentOperator = True
                 else:
                     print "identifier not declared"
