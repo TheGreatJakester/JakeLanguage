@@ -9,24 +9,18 @@ class Interpreture:
         self.table = SymbolTable.SymbolTable()
 
         self.printState = False
-
         self.makeState = False
-
-
         self.assignState = False
-        self.assignSetupState = False
-        self.assignVar = None
 
-        self.printState = False
+        self.assignVar = None
 
         self.expectingIdentifier = False
         self.expectingOperand = False
+
         self.expectingOperator = False
-
-
-
         self.expectingAssignmentOperator = False
 
+        self.expectEndState = False
 
 
     def classifyToken(self,word):
@@ -53,7 +47,10 @@ class Interpreture:
             if word == "/":
                 return Token.Token(Operator.DividesOperator())
             if word == "=":
-                return Token.Token(assignment.AssignmentOperator())
+                if self.expectingAssignmentOperator:
+                    self.assignState = True
+                else:
+                    raise "Not expeccting assignment operator"
 
         elif(tokenizeEndOfStatment(word)):
             
@@ -68,13 +65,25 @@ class Interpreture:
                 # no variable found; make sure we are in a make state
                 if self.makeState:
                     self.assignVar = variable.Variable(word,None,None)
+                    self.expectingAssignmentOperator = True
                 else:
                     raise "identifier not declared"
             else:
                 #we found a declared variable... check states
-                    
-            if not self.expectingIdentifier:
-                raise "not expecting Identifier: " + word
+                if self.makeState:
+                    raise "identifier allready declared"
+                elif self.printState:
+                    print(variable.variable.value)
+                    self.expectEndState = True
+                elif self.assignState:
+                    if not self.assignVar.var_type:
+                        self.assignVar.var_type = variable.var_type
+                    if not variable.var_type == self.assignVar.var_type:
+                        raise "type of {variable.name} doesn't match {self.assignVar.name}"
+                elif not self.assignVar:
+                    #we must be statless and able to start assigning this variable
+                    self.assignVar = variable
+                    self.expectingAssignmentOperator = True
             
 
         else:
