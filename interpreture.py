@@ -33,17 +33,19 @@ class Interpreture:
                 self.printState = True
                 self.expectingIdentifier = True
             else:
-                raise "error: no support for that keyword"
+                print "error: no support for that keyword"
+                raise
 
         elif(tokenizeStrings(word)):
             if self.expectingOperand:
-                self.lastOperand = Operand.Operand(word,Operand.STRING))
+                self.lastOperand = Operand.Operand(word,Operand.STRING)
                 self.expectingOperand = False
                 self.expectingOperator = True
                 self.expectEndState = True
 
             else:
-                raise "not expecint operand {word}"
+                print "not expecint operand {word}"
+                raise
 
 
         elif(tokenizeOperators(word)):
@@ -52,10 +54,12 @@ class Interpreture:
                     self.assignState = True
                     return
                 else:
-                    raise "Not expeccting assignment operator"
+                    print "Not expeccting assignment operator"
+                    raise
 
             if not self.expectingOperator:
-                raise "Not expecting operator {word}"
+                print "Not expecting operator {word}"
+                raise
 
             operator = None
             if word == "+":
@@ -69,9 +73,11 @@ class Interpreture:
 
             if operator:
                 if not operator.doesCompute(self.lastOperand, self.assignVar):
-                    raise "{operator.name} doesn't work on {self.lastOperand.var_type} and {self.assignVar.var_type}"
+                    print "{operator.name} doesn't work on {self.lastOperand.var_type} and {self.assignVar.var_type}"
+                    raise
             else:
-                raise "no support for that operator"
+                print "no support for that operator"
+                raise
 
             self.expectEndState = False
             self.expectingOperand = True
@@ -95,11 +101,13 @@ class Interpreture:
 
                 self.expectEndState = False
             else: 
-                raise "not expecting end of statment"
+                print "not expecting end of statment"
+                raise
 
         elif(tokenizeDigits(word)):
             if not self.expectingOperand:
-                raise "not expecting operand {word}"
+                print "not expecting operand {word}"
+                raise
             self.lastOperand = Operand.Operand(word,Operand.NUMBER)
             self.expectingOperand = False
             self.expectingOperator = True
@@ -113,11 +121,13 @@ class Interpreture:
                     self.assignVar = variable.Variable(word,None,None)
                     self.expectingAssignmentOperator = True
                 else:
-                    raise "identifier not declared"
+                    print "identifier not declared"
+                    raise
             else:
                 #we found a declared variable... check states
                 if self.makeState:
-                    raise "identifier allready declared"
+                    print "identifier allready declared"
+                    raise
                 elif self.printState:
                     print(variable.variable.value)
                     self.expectEndState = True
@@ -125,7 +135,8 @@ class Interpreture:
                     if not self.assignVar.var_type:
                         self.assignVar.var_type = variable.var_type
                     if not variable.var_type == self.assignVar.var_type:
-                        raise "type of {variable.name} doesn't match {self.assignVar.name}"
+                        print "type of {variable.name} doesn't match {self.assignVar.name}"
+                        raise
                 elif not self.assignVar:
                     #we must be statless and able to start assigning this variable
                     self.assignVar = variable
@@ -133,4 +144,5 @@ class Interpreture:
             
 
         else:
-            raise "didn't find that word"
+            print "didn't find that word {word}"
+            raise
