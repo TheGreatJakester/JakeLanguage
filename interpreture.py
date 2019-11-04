@@ -21,8 +21,6 @@ class Interpreture:
         self.expectingOperator = False
         self.expectingAssignmentOperator = False
 
-        self.expectEndState = False
-
 
     def classifyToken(self,word):
         if(tokenizeKeywords(word)):
@@ -88,13 +86,12 @@ class Interpreture:
                 print "no support for that operator"
                 raise SyntaxError
 
-            self.expectEndState = False
             self.expectingOperand = True
             self.expectingOperator = False
 
 
         elif(tokenizeEndOfStatment(word)):
-            if self.expectEndState:
+            if (self.assignState and self.expectingOperator) or self.printState:
                 self.printState = False
                 self.makeState = False
                 self.assignState = False
@@ -108,7 +105,6 @@ class Interpreture:
                 self.expectingOperator = False
                 self.expectingAssignmentOperator = False
 
-                self.expectEndState = False
             else: 
                 print "not expecting end of statment"
                 raise SyntaxError
