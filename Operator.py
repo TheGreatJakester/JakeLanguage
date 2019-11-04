@@ -3,7 +3,7 @@ import Operand
 import Operator
 
 def doubleCheck(operand1,operand2,data_type):
-    return operand1.type == data_type and operand2.type == data_type
+    return operand1.var_type == data_type and operand2.var_type == data_type
            
 
 class Operator:

@@ -39,6 +39,8 @@ class Interpreture:
         elif(tokenizeStrings(word)):
             if self.expectingOperand:
                 self.lastOperand = Operand.Operand(word,Operand.STRING)
+                if not self.assignVar.var_type:
+                    self.assignVar.var_type = Operand.STRING
                 self.expectingOperand = False
                 self.expectingOperator = True
                 self.expectEndState = True
@@ -52,6 +54,7 @@ class Interpreture:
             if word == "=":
                 if self.expectingAssignmentOperator:
                     self.assignState = True
+                    self.expectingOperand = True
                     return
                 else:
                     print "Not expeccting assignment operator"
@@ -73,7 +76,7 @@ class Interpreture:
 
             if operator:
                 if not operator.doesCompute(self.lastOperand, self.assignVar):
-                    print "{operator.name} doesn't work on {self.lastOperand.var_type} and {self.assignVar.var_type}"
+                    print "{} doesn't work on {} and {}".format(operator.name,self.lastOperand.var_type,self.assignVar.var_type)
                     raise SyntaxError
             else:
                 print "no support for that operator"
@@ -109,6 +112,8 @@ class Interpreture:
                 print "not expecting operand {word}"
                 raise SyntaxError
             self.lastOperand = Operand.Operand(word,Operand.NUMBER)
+            if not self.assignVar.var_type:
+                self.assignVar.var_type = Operand.NUMBER
             self.expectingOperand = False
             self.expectingOperator = True
             self.expectEndState = True
