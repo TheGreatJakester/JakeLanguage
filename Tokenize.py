@@ -6,6 +6,7 @@ import endOfStatment
 import variable
 import Identifier
 import Token
+import assignment
 
 def tokenizeComments(text):
     expression = r"\/\/.*$"
@@ -64,10 +65,12 @@ def classifyToken(word):
             return Token.Token(Operator.TimesOperator())
         if word == "/":
             return Token.Token(Operator.DividesOperator())
+        if word == "=":
+            return Token.Token(assignment.AssignmentOperator())
 
     elif(tokenizeEndOfStatment(word)):
         
-        return Token.Token(endOfStatment.EndOfStatment)
+        return Token.Token(endOfStatment.EndOfStatment())
 
     elif(tokenizeDigits(word)):
         return Token.Token(Operand.Operand(word,Operand.NUMBER))

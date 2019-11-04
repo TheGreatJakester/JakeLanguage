@@ -32,4 +32,6 @@ contents = Tokenize.cleanComments(contents)
 words = Tokenize.tokenizeOutWords(contents)
 tokens = [Tokenize.classifyToken(word) for word in words]
 for token in tokens:
-    print(token)
+    mes = token.value.name
+    
+    print(mes)
