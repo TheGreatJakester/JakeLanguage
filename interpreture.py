@@ -29,7 +29,7 @@ class Interpreture:
             if(word == "make"):
                 self.makeState = True
                 self.expectingIdentifier = True
-            if(word == "print"):
+            elif(word == "print"):
                 self.printState = True
                 self.expectingIdentifier = True
             else:
