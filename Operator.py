@@ -12,9 +12,9 @@ class Operator:
         self.data_types = []
     def doesCompute(self,op1,op2):
         for dt in self.data_types:
-            if not doubleCheck(op1,op2,dt):
-                return False
-        return True
+            if doubleCheck(op1,op2,dt):
+                return True
+        return False
 
     def evaluate(operand1,operand):
         pass
