@@ -1,2 +1,2 @@
 make x = 22 + 44 ;
-print x
+print x x ;

@@ -26,12 +26,15 @@ class Interpreture:
 
     def classifyToken(self,word):
         if(tokenizeKeywords(word)):
+            if self.makeState or self.printState or self.assignState:
+                print "Wasn't expecint keyword {}".format(word)
+                raise SyntaxError
+
             if(word == "make"):
                 self.makeState = True
                 self.expectingIdentifier = True
             elif(word == "print"):
                 self.printState = True
-                self.expectingIdentifier = True
             else:
                 print "error: no support for that keyword"
                 raise SyntaxError
@@ -41,9 +44,12 @@ class Interpreture:
                 self.lastOperand = Operand.Operand(word,Operand.STRING)
                 if not self.assignVar.var_type:
                     self.assignVar.var_type = Operand.STRING
-                self.expectingOperand = False
-                self.expectingOperator = True
-                self.expectEndState = True
+
+                if self.printState:
+                    print(word)
+                else:
+                    self.expectingOperand = False
+                    self.expectingOperator = True
 
             else:
                 print "not expecint operand {word}"
@@ -108,15 +114,20 @@ class Interpreture:
                 raise SyntaxError
 
         elif(tokenizeDigits(word)):
-            if not self.expectingOperand:
-                print "not expecting operand {word}"
+            if self.expectingOperand:
+                self.lastOperand = Operand.Operand(word,Operand.NUMBER)
+                if not self.assignVar.var_type:
+                    self.assignVar.var_type = Operand.NUMBER
+
+                if self.printState:
+                    print(word)
+                else:
+                    self.expectingOperand = False
+                    self.expectingOperator = True
+
+            else:
+                print "not expecing operand {}".format(word)
                 raise SyntaxError
-            self.lastOperand = Operand.Operand(word,Operand.NUMBER)
-            if not self.assignVar.var_type:
-                self.assignVar.var_type = Operand.NUMBER
-            self.expectingOperand = False
-            self.expectingOperator = True
-            self.expectEndState = True
 
         elif(tokenizeIdentifiers(word)):
             variable = self.table.findVariableByName(word)
@@ -136,7 +147,6 @@ class Interpreture:
                     raise SyntaxError
                 elif self.printState:
                     print(variable.value)
-                    self.expectEndState = True
                 elif self.assignState:
                     if not self.assignVar.var_type:
                         self.assignVar.var_type = variable.var_type
