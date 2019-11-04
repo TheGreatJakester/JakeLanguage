@@ -16,6 +16,7 @@ class Interpreture:
 
         self.expectingIdentifier = False
         self.expectingOperand = False
+        self.lastOperand = None
 
         self.expectingOperator = False
         self.expectingAssignmentOperator = False
@@ -38,23 +39,55 @@ class Interpreture:
             return Token.Token(Operand.Operand(word,Operand.STRING))
 
         elif(tokenizeOperators(word)):
-            if word == "+":
-                return Token.Token(Operator.PlusOperator())
-            if word == "-":
-                return Token.Token(Operator.MinusOperator())
-            if word == "*":
-                return Token.Token(Operator.TimesOperator())
-            if word == "/":
-                return Token.Token(Operator.DividesOperator())
             if word == "=":
                 if self.expectingAssignmentOperator:
                     self.assignState = True
+                    return
                 else:
                     raise "Not expeccting assignment operator"
 
+            if not self.expectingOperator:
+                raise "Not expecting operator {word}"
+
+            operator = None
+            if word == "+":
+                operator = Operator.PlusOperator()
+            elif word == "-":
+                operator = Operator.MinusOperator()
+            elif word == "*":
+                operator = Operator.TimesOperator()
+            elif word == "/":
+                operator = Operator.DividesOperator()
+
+            if operator:
+                if not operator.doesCompute(self.lastOperand, self.assignVar):
+                    raise "{operator.name} doesn't work on {self.lastOperand.var_type} and {self.assignVar.var_type}"
+            else:
+                raise "no support for that operator"
+
+            self.expectEndState = False
+            self.expectingOperand = True
+            self.expectingOperator = False
+
+
         elif(tokenizeEndOfStatment(word)):
-            
-            return Token.Token(endOfStatment.EndOfStatment())
+            if self.expectEndState:
+                self.printState = False
+                self.makeState = False
+                self.assignState = False
+
+                self.assignVar = None
+
+                self.expectingIdentifier = False
+                self.expectingOperand = False
+                self.lastOperand = None
+
+                self.expectingOperator = False
+                self.expectingAssignmentOperator = False
+
+                self.expectEndState = False
+            else: 
+                raise "not expecting end of statment"
 
         elif(tokenizeDigits(word)):
             return Token.Token(Operand.Operand(word,Operand.NUMBER))
