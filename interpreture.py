@@ -132,7 +132,7 @@ class Interpreture:
 
         elif(tokenizeDigits(word)):
             if self.expectingOperand:
-                op = Operand.Operand(word,Operand.NUMBER)
+                op = Operand.Operand(float(word),Operand.NUMBER)
                 self.handleOperand(op)
                 
             else:
