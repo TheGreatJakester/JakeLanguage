@@ -29,10 +29,14 @@ class Interpreture:
         if self.printState:
             print(word)
         elif self.assignState:
-            if self.lastOperator and self.lastOperand and not self.lastOperator.doesCompute(self.lastOperand, op):
-                print "{} doesn't work on {} and {}".format(self.lastOperator.name,self.lastOperand.var_type,op.var_type)
-                raise SyntaxError
-            self.lastOperand = self.lastOperator.execute(op,self.lastOperand)
+            if self.lastOperator and self.lastOperand :
+                if not self.lastOperator.doesCompute(self.lastOperand, op):
+                    print "{} doesn't work on {} and {}".format(self.lastOperator.name,self.lastOperand.var_type,op.var_type)
+                    raise SyntaxError
+                else:
+                    self.lastOperand = self.lastOperator.execute(op,self.lastOperand)
+            else:
+                self.lastOperand = op
             if not self.assignVar.var_type:
                 self.assignVar.var_type = op.var_type
             if not self.assignVar.var_type == op.var_type:
@@ -106,7 +110,7 @@ class Interpreture:
             if (self.assignState and self.expectingOperator) or self.printState:
                 self.printState = False
                 self.makeState = False
-                if self.assignState:
+                if self.assignState and self.lastOperand:
                     self.assignVar.value = self.lastOperand.value
                 self.assignState = False
 

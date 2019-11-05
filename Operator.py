@@ -16,10 +16,10 @@ class Operator:
                 return True
         return False
 
-    def evaluate(operand1,operand):
+    def evaluate(self,operand1,operand):
         pass
 
-    def execute(op1,op2):
+    def execute(self,op1,op2):
         if self.doesCompute(op1,op2):
             return Operand.Operand(self.evaluate(op1.value,op2.value),op1.var_type)
         else:
@@ -29,14 +29,14 @@ class PlusOperator(Operator):
     def __init__(self): 
         self.name = "+"
         self.data_types = [Operand.STRING,Operand.NUMBER]
-    def evaluate(operand1,operand):
+    def evaluate(self,operand1,operand2):
         return operand1 + operand2
 
 class MinusOperator(Operator):
     def __init__(self): 
         self.name = "-"
         self.data_types = [Operand.STRING,Operand.NUMBER]
-    def evaluate(operand1,operand):
+    def evaluate(self,operand1,operand2):
         return operand1 * operand2
 
 
@@ -44,12 +44,12 @@ class TimesOperator(Operator):
     def __init__(self): 
         self.name = "*"
         self.data_types = [Operand.NUMBER]
-    def evaluate(operand1,operand):
+    def evaluate(self,operand1,operand2):
         return operand1 * operand2
     
 class DividesOperator(Operator):
     def __init__(self): 
         self.name = "/"
         self.data_types = [Operand.NUMBER]
-    def evaluate(operand1,operand):
+    def evaluate(self,operand1,operand2):
         return operand1 / operand2
