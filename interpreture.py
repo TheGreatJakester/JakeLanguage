@@ -20,6 +20,8 @@ class Interpreture:
         self.lastOperand = None
         self.lastOperator = None
 
+        self.cur_value = None
+
         self.expectingOperator = False
         self.expectingAssignmentOperator = False
 
@@ -30,7 +32,7 @@ class Interpreture:
             if self.lastOperator and self.lastOperand and not self.lastOperator.doesCompute(self.lastOperand, op):
                 print "{} doesn't work on {} and {}".format(self.lastOperator.name,self.lastOperand.var_type,op.var_type)
                 raise SyntaxError
-            self.lastOperand = op
+            self.lastOperand = self.lastOperator.execute(op,self.lastOperand)
             if not self.assignVar.var_type:
                 self.assignVar.var_type = op.var_type
             if not self.assignVar.var_type == op.var_type:
@@ -104,7 +106,10 @@ class Interpreture:
             if (self.assignState and self.expectingOperator) or self.printState:
                 self.printState = False
                 self.makeState = False
+                if self.assignState:
+                    self.assignVar.value = self.lastOperand.value
                 self.assignState = False
+
 
                 self.assignVar = None
 
@@ -114,6 +119,8 @@ class Interpreture:
 
                 self.expectingOperator = False
                 self.expectingAssignmentOperator = False
+
+                self.cur_value = None
 
             else: 
                 print "not expecting end of statment"

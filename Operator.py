@@ -20,8 +20,8 @@ class Operator:
         pass
 
     def execute(op1,op2):
-        if self.doesCompute(op1,op2) :
-            return self.evaluate(op1,op2)
+        if self.doesCompute(op1,op2):
+            return Operand.Operand(self.evaluate(op1.value,op2.value),op1.var_type)
         else:
             raise "Operator %s doesn't work on %s and %s" % name, op1.type, op2.type
 
