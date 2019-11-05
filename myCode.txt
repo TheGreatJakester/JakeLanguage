@@ -1,2 +1,2 @@
-make x = 1 * 2 + 3 ;
-print x ;
+make x = 0 ;
+make y = 9 ;
