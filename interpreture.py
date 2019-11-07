@@ -2,11 +2,13 @@ from Tokenize import *
 import Token
 import SymbolTable
 from variable import *
+from ParseTree import *
 
 
 class Interpreture:
     def __init__(self):
         self.table = SymbolTable.SymbolTable()
+        self.tree = ParseTree()
 
         self.printState = False
         self.makeState = False
@@ -26,6 +28,7 @@ class Interpreture:
         self.expectingAssignmentOperator = False
 
     def handleOperand(self,op):
+        self.tree.addFactor(Node(op))
         if self.printState:
             print(word)
         elif self.assignState:
@@ -49,15 +52,18 @@ class Interpreture:
     def classifyToken(self,word):
         if(tokenizeKeywords(word)):
             if self.makeState or self.printState or self.assignState:
+                self.tree.addStatment(Node(""))
                 print "Wasn't expecint keyword {}".format(word)
                 raise SyntaxError
 
             if(word == "make"):
                 self.makeState = True
                 self.expectingIdentifier = True
+                self.tree.addKeyword(Node("make"))
             elif(word == "print"):
                 self.printState = True
                 self.expectingOperand = True
+                self.addKeyword(Node("print"))
             else:
                 print "error: no support for that keyword"
                 raise SyntaxError
@@ -77,6 +83,7 @@ class Interpreture:
                 if self.expectingAssignmentOperator:
                     self.assignState = True
                     self.expectingOperand = True
+                    self.tree.addAssignOperaotr(Node("="))
                     return
                 else:
                     print "Not expeccting assignment operator"
@@ -89,12 +96,16 @@ class Interpreture:
             operator = None
             if word == "+":
                 operator = Operator.PlusOperator()
+                self.tree.addTermOperator(Node("+"))
             elif word == "-":
                 operator = Operator.MinusOperator()
+                self.tree.addTermOperator(Node("-"))
             elif word == "*":
                 operator = Operator.TimesOperator()
+                self.tree.addFactorOperator(Node("*"))
             elif word == "/":
                 operator = Operator.DividesOperator()
+                self.tree.addFactorOperator(Node("/"))
 
             if operator:
                 self.lastOperator = operator
@@ -125,6 +136,7 @@ class Interpreture:
                 self.expectingAssignmentOperator = False
 
                 self.cur_value = None
+                self.tree.addStatment(Node(""))
 
             else: 
                 print "not expecting end of statment"
@@ -134,6 +146,7 @@ class Interpreture:
             if self.expectingOperand:
                 op = Operand.Operand(float(word),Operand.NUMBER)
                 self.handleOperand(op)
+                self.tree.addFactor(Node(word))
                 
             else:
                 print "not expecint operand {}".format(word)
@@ -149,6 +162,7 @@ class Interpreture:
                     self.expectingAssignmentOperator = True
                     self.makeState = False
                     self.table.addSymbol(self.assignVar)
+                    self.tree.addIdentifier(Node(word))
                 else:
                     print "identifier {} not declared".format(word)
                     raise SyntaxError
@@ -160,13 +174,18 @@ class Interpreture:
                 elif self.printState:
                     print(cur_variable.value)
                     self.expectingOperand = True
+                    self.tree.addIdentifier(Node(word))
                 elif self.assignState:
                     if self.expectingOperand:
                         self.handleOperand(cur_variable)
+                        node = Node(word)
+                        node.value = cur_variable.value
+                        self.tree.addFactor(node)
                     else:
                         print "Not expecting identifier {}".format(word)
 
                 elif not self.assignVar:
+                    self.tree.addIdentifier(Node(word))
                     #we must be statless and able to start assigning this variable
                     self.assignVar = cur_variable
                     self.expectingAssignmentOperator = True
