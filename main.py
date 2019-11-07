@@ -3,16 +3,6 @@ import Tokenize
 import Token
 import interpreture
 
-keyword_dict = {
-    "make": "declares a variable",
-    "if": "if control flow",
-    "else": "else control flow",
-    "return": "returns out of a method",
-    "class": "declares a class",
-    "method": "declares a method",
-}
-
-
 contents = ""
 try:
     codeFile = open("myCode.txt","r")
