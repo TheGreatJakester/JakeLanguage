@@ -10,8 +10,7 @@ class Node:
 
 class ParseTree:
     def __init__(self):
-        self.root = Node()
-        self.root.name = "Root"
+        self.root = Node("Root")
 
         self.lastStatment = Node("")
         self.lastKeyword = None
@@ -20,7 +19,7 @@ class ParseTree:
 
     def addStatment(self,node):
         self.lastStatment = node
-        self.root.addChild(statmentNode)
+        self.root.addChild(node)
 
         self.lastKeyword = None
         self.lastTerm = None
@@ -51,7 +50,7 @@ class ParseTree:
             self.lastFactor.addChild(node)
         elif(self.lastTerm):
             self.lastTerm.addChild(node)
-        elif(self.lastKeyword)
+        elif(self.lastKeyword):
             self.lastKeyword.addChild(node)
         else:
             pass
@@ -65,6 +64,8 @@ class ParseTree:
     def addFactor(self,node):
         if(self.lastFactor):
             self.lastFactor.addChild(node)
-        else:
+        elif(self.lastTerm):
             self.lastTerm.addChild(node)
             self.lastTerm = node
+        else:
+            pass

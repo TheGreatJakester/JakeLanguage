@@ -1,2 +1,4 @@
 make x = 0 ;
 make y = 9 ;
+print x ;
+make 92 ;

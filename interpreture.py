@@ -63,7 +63,7 @@ class Interpreture:
             elif(word == "print"):
                 self.printState = True
                 self.expectingOperand = True
-                self.addKeyword(Node("print"))
+                self.tree.addKeyword(Node("print"))
             else:
                 print "error: no support for that keyword"
                 raise SyntaxError
