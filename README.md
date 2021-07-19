@@ -8,4 +8,4 @@ This was never meant to be run anywhere else other than my personal laptop. Howe
 
 **Make a virtual python environment** and install the pip packages listed in the requirments.txt
 
-I'm ~~99%~~ sure I left the *.vscode* directory in the repo. It should have some helpfull testing settings.
+The *.vscode* directory in the repo. It should have some helpfull testing settings.
