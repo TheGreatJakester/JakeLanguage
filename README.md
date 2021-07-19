@@ -10,5 +10,5 @@ This was never meant to be run anywhere else other than my personal laptop. Howe
 
 The *.vscode* directory in the repo. It should have some helpfull testing settings.
 
-#repo purpose
+# repo purpose
 This project was part of a university class
